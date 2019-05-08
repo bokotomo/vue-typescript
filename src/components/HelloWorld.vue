@@ -19,6 +19,8 @@
       button: {{ btnName }}
     </button>
 
+    {{isTest}}
+
     <div>
       <div
         v-for="num in nums"
@@ -32,6 +34,7 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
+// import { State, Action, Getter } from 'vuex-class'
 
 interface Location {
     id: number;
@@ -41,31 +44,30 @@ interface Location {
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private value!: string;
-  @Prop({ default: 'test' }) contents!: string;
-  private nums!: number[] = [1, 3, 5, 7, 9];
-  private user!: {key?: string;} = {name: 'tomo'};
-  private job!: {id?: number; name?: string;} = {};
-  private location!: Location = {};
-  private btnName: string = "button"
+  @Prop({ default: 'test' }) private contents: string = 'ok';
+  private nums: number[] = [1, 3, 5, 7, 9];
+  private user: { name: string} = { name: 'tomo' };
+  private job: { id?: number; name?: string; } = {};
+  private location: Location = { id: 1, name: '' };
+  private btnName: string = 'button';
+  // @State('isTest') private isTest: boolean = false;
 
   get name(): string {
     return 'taro';
   }
 
-  mounted(): void {
-    console.log('mounted');
-    this.job['name'] = 'tomoname';
+  private mounted(): void {
+    this.job.name = 'tomoname';
     this.location.name = 'tokyo';
   }
 
-  public btn(): void {
-    this.btnName = "clicked btn";
+  private btn(): void {
+    this.btnName = 'clicked btn';
   }
 
-
   @Watch('btnName')
-  public changed(){
-    alert("changed");
+  private changed() {
+    alert('changed');
   }
 }
 </script>
